@@ -30,7 +30,7 @@ public class ProductService {
 	}
 	
 	public Product created(Product product) {
-		logger.info("Created a person");
+		logger.info("Created a product");
 		return repository.save(product);
 	}
 	
@@ -45,7 +45,7 @@ public class ProductService {
 		
 	}
 	public void delete(Long id) {
-		logger.info("Delete a person");
+		logger.info("Delete a product");
 		Product entity = repository.findById(id).orElseThrow(()-> new ResourceNotFaundExceptions("No Records found for this ID"));
 		repository.delete(entity);
 	}
