@@ -1,20 +1,15 @@
 package com.julianocarpes.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.julianocarpes.utils.Calculation;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,9 +26,6 @@ public class Client implements Serializable{
 	private String email;
 	private String phone;
 	
-	@ManyToMany
-	@JoinColumn(name = "client_id")
-	private List<Product> protucts = new ArrayList<>();
 	
 	public Client() {
 		

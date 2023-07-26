@@ -1,10 +1,9 @@
 package com.julianocarpes.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,29 +17,31 @@ import com.julianocarpes.models.Product;
 import com.julianocarpes.services.ProductService;
 
 @RestController
-@RequestMapping(value = "/products")
+@CrossOrigin(origins = "*")
+@RequestMapping(value = "products")
 public class ProductController {
 
 	@Autowired
 	private ProductService service;
 
 	@GetMapping
-	private List<Product> findAll() {
+	private Iterable<Product> findAll() {
 		return service.findAll();
 	}
 
 	@GetMapping(value = "/{id}")
-	private Product findById(@PathVariable(value = "id") Long id) {
+	private ResponseEntity<Product> findById(@PathVariable(value = "id") Long id) {
 		return service.findById(id);
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	private Product created(@RequestBody Product prod) {
+	@PostMapping("/register")
+	private ResponseEntity<?> created(@RequestBody Product prod) {
 		return service.created(prod);
 	}
 
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	private Product update(@RequestBody Product prod) {
+	//@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/update")
+	private ResponseEntity<Product> update(@RequestBody Product prod) {
 		return service.update(prod);
 	}
 	@DeleteMapping(value = "/{id}")
