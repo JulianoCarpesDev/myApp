@@ -72,7 +72,7 @@ public class Product implements Serializable{
 
 
 	public Double getAmount() {
-		return amount;
+		return amount = getPrice() * getQuantity();
 	}
 
 
@@ -102,8 +102,9 @@ public class Product implements Serializable{
 
 
 	public void setAmount(Double amount) {
-		this.amount = Calculation.calculateAmount(getPrice(), getQuantity());
+		this.amount = amount;
 	}
+	
 
 
 	@Override

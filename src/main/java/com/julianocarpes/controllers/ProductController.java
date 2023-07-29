@@ -1,7 +1,6 @@
 package com.julianocarpes.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,10 +43,9 @@ public class ProductController {
 	private ResponseEntity<Product> update(@RequestBody Product prod) {
 		return service.update(prod);
 	}
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(value = "/remove/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value = "id")Long id ) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return service.delete(id);
 	}
 
 }

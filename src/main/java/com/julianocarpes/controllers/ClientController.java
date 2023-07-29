@@ -1,10 +1,8 @@
 package com.julianocarpes.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +16,7 @@ import com.julianocarpes.models.Client;
 import com.julianocarpes.services.ClientService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping(value = "/clients")
 public class ClientController {
 
@@ -25,28 +24,28 @@ public class ClientController {
 	private ClientService service;
 
 	@GetMapping
-	private List<Client> findAll() {
+	private Iterable<Client>findAll() {
 		return service.findAll();
 	}
 
 	@GetMapping(value = "/{id}")
-	private Client findById(@PathVariable(value = "id") Long id) {
+	private ResponseEntity<Client> findById(@PathVariable(value = "id") Long id) {
 		return service.findById(id);
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	private Client created(@RequestBody Client client) {
+	@PostMapping("/save")
+	private ResponseEntity<?> created(@RequestBody Client client) {
 		return service.created(client);
 	}
 
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	private Client update(@RequestBody Client client) {
+	@PutMapping(value = "/update")
+	private ResponseEntity<?> update(@RequestBody Client client) {
 		return service.update(client);
 	}
-	@DeleteMapping(value = "/{id}")
+	@DeleteMapping(value = "/remove/{id}")
 	public ResponseEntity<?> delete(@PathVariable(value = "id")Long id ) {
-		service.delete(id);
-		return ResponseEntity.noContent().build();
+		return service.delete(id);
+		
 	}
 
 }

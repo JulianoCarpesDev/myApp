@@ -71,10 +71,11 @@ public class ProductService {
 	    return ResponseEntity.ok(updatedProduct);
 	}
 
-	public void delete(Long id) {
+	public ResponseEntity<ModelAnswer> delete(Long id) {
 		logger.info("Delete a product");
-		Product entity = repository.findById(id).orElseThrow(()-> new ResourceNotFaundExceptions("No Records found for this ID"));
-		repository.delete(entity);
+		repository.deleteById(id);
+		message.setMessage("product removed successfully");
+		return new ResponseEntity<ModelAnswer>(message,HttpStatus.OK);
 	}
 
 }
